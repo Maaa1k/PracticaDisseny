@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Registro</title>
 </head>
 <body>
 <form method="post">
@@ -14,9 +14,11 @@
     Password: <br>
     <input type="password" name="password">
     <br>
-    <input type="submit" value="Envia">
-<h1>${message}</h1>
+    <input type="submit" value="Registrar">
+    <h1>${message}</h1>
 </form>
-<a href="register.jsp">Registrar</a>
+
+<a href="login">Volver a Iniciar Sesión</a>
+
 </body>
 </html>

@@ -3,9 +3,10 @@ public class User {
     String usr;
     String psw;
 
-    public User(String usr, String psw) {
+    public User(String usr, String psw, int id) {
         this.usr = usr;
         this.psw = psw;
+        this.id = id;
     }
 
     public int getId() {
