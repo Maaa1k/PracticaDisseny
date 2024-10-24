@@ -1,4 +1,7 @@
+package Servlet;
+
 import java.util.regex.Pattern;
+import db.*;
 
 public class RegistrationServlet {
 

@@ -1,9 +1,11 @@
+package db;
+
 import java.util.ArrayList;
 import java.util.List;
-
+import model.User;
 
 //TODO Crear la clase registro y añadir el ID autoincremental
-public class UserDAOInMemory  implements  UserDAO {
+public class UserDAOInMemory  implements UserDAO {
     static List<User> users = new ArrayList<>();
 
     static {

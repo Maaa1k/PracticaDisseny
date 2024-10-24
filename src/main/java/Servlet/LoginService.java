@@ -1,4 +1,6 @@
-
+package Servlet;
+import db.*;
+import model.*;
 
 public class LoginService {
     UserDAO userDAO = new UserDAOInMemory();

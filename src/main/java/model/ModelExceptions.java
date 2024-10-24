@@ -1,8 +1,10 @@
-public class ErrorHandler {
+package model;
+
+public class ModelExceptions {
     boolean status;
     int code;
 
-    public ErrorHandler(boolean status, int code) {
+    public ModelExceptions(boolean status, int code) {
         this.status = status;
         this.code = code;
     }
