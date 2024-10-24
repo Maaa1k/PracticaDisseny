@@ -1,9 +1,9 @@
-package Servlet;
+package Service;
 
 import java.util.regex.Pattern;
 import db.*;
 
-public class RegistrationServlet {
+public class RegistrationService {
 
 
     public boolean checkPassword(String password){

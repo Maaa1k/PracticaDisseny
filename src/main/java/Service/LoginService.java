@@ -1,4 +1,4 @@
-package Servlet;
+package Service;
 import db.*;
 import model.*;
 
