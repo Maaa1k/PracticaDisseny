@@ -16,7 +16,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher requestDispatcher =
-                req.getRequestDispatcher("/WEB-INF/jsp/LogIn.jsp");
+                req.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
         requestDispatcher.forward(req, resp);
         }
 
@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String id = req.getParameter("id");
-        User user = loginService.checkUser(username, password, Integer.parseInt(id));
+        User user = loginService.checkUser(username, password);
         if(user != null){
             //Usuari i pass correcte
             HttpSession session = req.getSession();
@@ -36,6 +36,7 @@ public class LoginServlet extends HttpServlet {
             // hi ha un identificador que identifica la sessio correcte
 
             //Redireccionar a l'usuari cap una pagina privada
+            //TODO Llevar al dashboard de usuarios registrados
             resp.sendRedirect("/private");
             return;
         }else{
@@ -45,7 +46,7 @@ public class LoginServlet extends HttpServlet {
             req.setAttribute("message", "Usuari i/o Password incorrectes");
         }
         RequestDispatcher requestDispatcher =
-                req.getRequestDispatcher("/WEB-INF/jsp/LogIn.jsp");
+                req.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
         requestDispatcher.forward(req, resp);
     }
 

@@ -17,6 +17,6 @@
     <input type="submit" value="Envia">
 <h1>${message}</h1>
 </form>
-<a href="register.jsp">Registrar</a>
+<a href="register">Registrar</a>
 </body>
 </html>

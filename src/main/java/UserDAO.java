@@ -1,3 +1,7 @@
 public interface UserDAO {
-    User findByUsernameAndPassword(String username, String password, int id);
+    User findByUsernameAndPassword(String username, String password);
+
+    User findByUsername(String username);
+
+    User findUserById( int id);
 }
