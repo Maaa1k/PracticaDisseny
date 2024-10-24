@@ -2,6 +2,7 @@ package Service;
 
 import java.util.regex.Pattern;
 import db.*;
+import errorhandler.*;
 
 public class RegistrationService {
 
@@ -22,7 +23,7 @@ public class RegistrationService {
 
         if (db.findByUsername(username) == null)/* usuario ya existe */ {
             if(!checkPassword(password)) {
-                System.out.println("ERROR SHORT PASSWORD");
+                ErrorHandler.manejarError(ErrorCodes.);
                 return false;
             }
             db.addUser(username, password);
