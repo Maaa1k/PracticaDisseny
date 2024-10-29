@@ -3,12 +3,21 @@ package model;
 public class User {
     int id;
     String usr;
+    String name;
     String psw;
 
-    public User(String usr, String psw, int id) {
+    public User(String usr, String name, String psw, int id) {
         this.usr = usr;
+        this.name = name;
         this.psw = psw;
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getId() {
@@ -35,3 +44,5 @@ public class User {
         this.psw = psw;
     }
 }
+
+

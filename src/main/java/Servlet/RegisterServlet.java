@@ -1,6 +1,7 @@
 package Servlet;
 
 import Service.RegistrationService;
+import errorhandler.ErrorCodes;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,17 +23,16 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RegistrationService checkService = new RegistrationService();
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
         // Validar y guardar el nuevo usuario
-        boolean isRegistered = registrationService.registerUser(username, password);
+        ErrorCodes isRegistered = registrationService.registerUser(username, password);
 
-        if (isRegistered) {
-            req.setAttribute("message", "Registro exitoso. Puedes iniciar sesión ahora.");
-        } else {
-            req.setAttribute("message", "Error en el registro. El usuario ya existe.");
-        }
+            req.setAttribute("message", "REGISTER STATUS: " + isRegistered.getStatus());
+
+
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/jsp/register.jsp");
         requestDispatcher.forward(req, resp);

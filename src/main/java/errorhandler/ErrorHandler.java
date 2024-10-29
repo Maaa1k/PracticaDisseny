@@ -1,15 +1,15 @@
 package errorhandler;
 
 public class ErrorHandler {
-    public static void manejarError(ErrorCodes codigoError) {
+    public static ErrorCodes handleError(ErrorCodes errorCode) {
         // Aquí puedes implementar lógica adicional, como registrar el error
-        System.out.println("Código de error: " + codigoError + " - " + codigoError.getStatus());
+        System.out.println("Código de error: " + errorCode + " - " + errorCode.getStatus());
         // Notificar al usuario
-        notificarUsuario(codigoError.getStatus());
+        return errorCode;
     }
 
-    private static void notificarUsuario(String mensaje) {
+    private static void notifyUser(ErrorCodes errorCodes) {
         // Lógica para notificar al usuario
-        System.out.println("Notificación al usuario: " + mensaje);
+        System.out.println("Notificación al usuario: " + errorCodes.getStatus());
     }
 }

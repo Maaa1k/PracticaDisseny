@@ -1,36 +1,50 @@
 package Service;
 
+import java.awt.*;
 import java.util.regex.Pattern;
 import db.*;
 import errorhandler.*;
 
 public class RegistrationService {
 
-
-    public boolean checkPassword(String password){
-        String regex = "^.{5,}$";
+    public boolean passRegex(String password) {
+        String regex = "^.{5,20}$";
 
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(password).matches();
     }
-    public boolean registerUser(String username, String password) {
-        UserDAOInMemory db = new UserDAOInMemory();
-        // Lógica para guardar el usuario en la base de datos
-        // Aquí debes comprobar si el usuario ya existe y si no, crear uno nuevo
-        // Devuelve true si el registro fue exitoso, de lo contrario false
-        // Ejemplo simple, deberías usar una base de datos
-        //TODO
 
-        if (db.findByUsername(username) == null)/* usuario ya existe */ {
-            if(!checkPassword(password)) {
-                ErrorHandler.manejarError(ErrorCodes.);
-                return false;
+    public ErrorCodes checkPass(String pass) {
+        if (!passRegex(pass)) {
+            //TODO Lógica de password
+            if (pass.length() < 5
+            ) {
+                return ErrorCodes.SHORTPASS;
+            }
+            if (pass.length() > 20) {
+                return ErrorCodes.LONGPASS;
+            }
+        }
+        return ErrorCodes.OK;
+    }
+
+    public ErrorCodes registerUser(String username, String password) {
+        UserDAOInMemory db = new UserDAOInMemory();
+        if (db.findByUsername(username) == null)/* CHECK IF USER EXIST*/ {
+            if (!passRegex(password)) {
+                //TODO Lógica de password
+                if (password.length() < 5
+                ) {
+                    return ErrorCodes.SHORTPASS;
+                }
+                if (password.length() > 20) {
+                    return ErrorCodes.LONGPASS;
+                }
             }
             db.addUser(username, password);
-            return true;
+            System.out.println("ADD USER");
+            return ErrorCodes.OK;
         }
-        // Guardar el nuevo usuario
-        System.out.println("DATABASE ERROR");
-        return false;
+        return ErrorCodes.USERNXIST;
     }
 }

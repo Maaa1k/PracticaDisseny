@@ -34,12 +34,6 @@ public class LoginServlet extends HttpServlet {
             //Usuari i pass correcte
             HttpSession session = req.getSession();
             session.setAttribute("user", username);
-            //Crea un objecte dins del  agatzem de sessions
-            // del servidor. Aquest és el nom de l'usuari autenticat
-            // El servidor crea o empra la COOKIE i l'envia al client. Dins
-            // hi ha un identificador que identifica la sessio correcte
-
-            //Redireccionar a l'usuari cap una pagina privada
             //TODO Llevar al dashboard de usuarios registrados
             resp.sendRedirect("/private");
             return;
