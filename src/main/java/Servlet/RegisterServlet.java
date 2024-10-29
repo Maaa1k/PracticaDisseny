@@ -29,12 +29,16 @@ public class RegisterServlet extends HttpServlet {
 
         // Validar y guardar el nuevo usuario
         ErrorCodes isRegistered = registrationService.registerUser(username, password);
-
+        if(isRegistered.equals(ErrorCodes.OK))
+        {
+            resp.sendRedirect("/login");
+        }
+        else {
             req.setAttribute("message", "REGISTER STATUS: " + isRegistered.getStatus());
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/jsp/register.jsp");
+            requestDispatcher.forward(req, resp);
+        }
 
 
-
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/jsp/register.jsp");
-        requestDispatcher.forward(req, resp);
     }
 }

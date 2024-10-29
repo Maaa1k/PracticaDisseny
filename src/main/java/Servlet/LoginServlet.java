@@ -36,16 +36,13 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("user", username);
             //TODO Llevar al dashboard de usuarios registrados
             resp.sendRedirect("/private");
-            return;
         }else{
-            //Retornar codi 401: Not Authorized
-            // Tornar un codi 200 normal amb una variable per indicar que no es correcte el login
-            // aixi l'usuari no veu la pagina 401 estandars, sino unoa 200 amb infromacio
             req.setAttribute("message", "Usuari i/o Password incorrectes");
+            RequestDispatcher requestDispatcher =
+                    req.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+            requestDispatcher.forward(req, resp);
         }
-        RequestDispatcher requestDispatcher =
-                req.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-        requestDispatcher.forward(req, resp);
+
     }
 
 }
