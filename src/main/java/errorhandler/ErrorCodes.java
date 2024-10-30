@@ -13,13 +13,10 @@ public enum ErrorCodes {
         this.code = code;
         this.status = status;
 
-    };
-
-
+    }
     public String getStatus() {
         return status;
     }
-
     public int getCode() {
         return code;
     }

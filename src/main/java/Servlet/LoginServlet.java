@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("user", username);
             //TODO Llevar al dashboard de usuarios registrados
-            resp.sendRedirect("/private");
+            resp.sendRedirect("/dashboard");
         }else{
             req.setAttribute("message", "Usuari i/o Password incorrectes");
             RequestDispatcher requestDispatcher =
