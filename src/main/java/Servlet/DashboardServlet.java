@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @WebServlet("/dashboard")
@@ -18,25 +17,19 @@ public class DashboardServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = req.getSession();
-
-
         List<String> elementos = (List<String>) session.getAttribute("elementos");
-        //List<String> elementos = new ArrayList<>(Arrays.asList("Elemento 1", "Elemento 2", "Elemento 3"));
+        List<String> drawings = (List<String>) session.getAttribute("drawings"); // Obtener dibujos
 
         if (elementos == null) {
             elementos = new ArrayList<>();
-            // Agregar elementos adicionales
-            elementos.add("test");
-            elementos.add("test");
-            elementos.add("test");
-            elementos.add("test");
-            session.setAttribute("elementos", elementos); // Almacena en la sesión
+            session.setAttribute("elementos", elementos);
         }
-        // Agregar la lista al request
+
         req.setAttribute("elementos", elementos);
+        req.setAttribute("drawings", drawings); // Pasar dibujos al JSP
+
         RequestDispatcher requestDispatcher =
                 req.getRequestDispatcher("/WEB-INF/jsp/dashboard.jsp");
         requestDispatcher.forward(req, resp);
-
     }
 }

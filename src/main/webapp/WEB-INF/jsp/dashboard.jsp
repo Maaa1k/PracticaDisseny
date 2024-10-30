@@ -1,7 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page isELIgnored="false" %>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,16 +11,17 @@
 
     <h2>Lista de Elementos</h2>
     <ul>
-        <c:forEach var="elemento" items="${elementos}" varStatus="status">
-            <li>
-                ${elemento}
-                <form action="deleteElement" method="post" style="display:inline;">
-                    <input type="hidden" name="index" value="${status.index}">
-                    <button type="submit">Eliminar</button>
-                </form>
-            </li>
+        <c:forEach var="elemento" items="${elementos}">
+            <li>${elemento}</li>
         </c:forEach>
     </ul>
+
+    <h2>Dibujos Guardados</h2>
+    <div>
+        <c:forEach var="drawing" items="${drawings}">
+            <img src="${drawing}" alt="Dibujo" style="max-width: 200px; max-height: 200px; margin: 10px;">
+        </c:forEach>
+    </div>
 
     <button onclick="window.location.href='logoutServlet'">Logout</button>
     <button onclick="window.location.href='draw'">Ir a Draw</button>
