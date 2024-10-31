@@ -28,7 +28,6 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        String id = req.getParameter("id");
         User user = loginService.checkUser(username, password);
         if(user != null){
             //Usuari i pass correcte

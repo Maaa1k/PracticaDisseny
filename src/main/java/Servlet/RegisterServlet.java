@@ -26,9 +26,10 @@ public class RegisterServlet extends HttpServlet {
         RegistrationService checkService = new RegistrationService();
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        String name = req.getParameter("name");
 
         // Validar y guardar el nuevo usuario
-        ErrorCodes isRegistered = registrationService.registerUser(username, password);
+        ErrorCodes isRegistered = registrationService.registerUser(username, name, password);
         if(isRegistered.equals(ErrorCodes.OK))
         {
             resp.sendRedirect("/login");

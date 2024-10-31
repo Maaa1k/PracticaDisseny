@@ -1,38 +1,33 @@
 package Service;
 
-import java.awt.*;
+
+import java.io.IOException;
 import java.util.regex.Pattern;
 import db.*;
 import errorhandler.*;
+import utils.NameMixer;
 
 public class RegistrationService {
 
     public boolean passRegex(String password) {
+        if (password == null) {
+            return true;
+        }
         String regex = "^.{5,20}$";
 
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(password).matches();
     }
 
-    public ErrorCodes checkPass(String pass) {
-        if (!passRegex(pass)) {
-            //TODO Lógica de password
-            if (pass.length() < 5
-            ) {
-                return ErrorCodes.SHORTPASS;
-            }
-            if (pass.length() > 20) {
-                return ErrorCodes.LONGPASS;
-            }
-        }
-        return ErrorCodes.OK;
-    }
 
-    public ErrorCodes registerUser(String username, String password) {
+    public ErrorCodes registerUser(String username, String name, String password) throws IOException {
         UserDAOInMemory db = new UserDAOInMemory();
-        if (db.findByUsername(username) == null)/* CHECK IF USER EXIST*/ {
+        NameMixer mixer = new NameMixer();
+        String newName;
+        newName = name;
+
+        if (db.findByUsername(username) == null){
             if (!passRegex(password)) {
-                //TODO Lógica de password
                 if (password.length() < 5
                 ) {
                     return ErrorCodes.SHORTPASS;
@@ -41,10 +36,14 @@ public class RegistrationService {
                     return ErrorCodes.LONGPASS;
                 }
             }
-            db.addUser(username, password);
+            if (name.isEmpty() || name.isBlank()) {
+                newName = mixer.nameGenerator();
+                System.out.println(newName);
+            }
+            db.addUser(username, newName, password);
             System.out.println("ADD USER");
             return ErrorCodes.OK;
         }
-        return ErrorCodes.USERNXIST;
+        return ErrorCodes.USEREXIST;
     }
 }

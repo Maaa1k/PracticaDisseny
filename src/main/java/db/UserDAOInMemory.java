@@ -16,10 +16,10 @@ public class UserDAOInMemory  implements UserDAO {
         users.add(new User("bill2", "Gervasio","1234321", 4));
     }
 
-    public void addUser(String username, String password){
+    public void addUser(String username, String name, String password){
         int id = users.size();
         id++;
-        users.add(new User(username, password, username,id));
+        users.add(new User(username, name, username,id));
         for (User u : users){
             System.out.println("USERNAME: " + u.getUsr() + " NAME: " + u.getName() + " PASSWORD: " + u.getPsw() + " ID: " + u.getId());
         }
