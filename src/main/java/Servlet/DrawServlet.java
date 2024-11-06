@@ -11,7 +11,6 @@ import java.io.IOException;
 public class DrawServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        // Redirige a la página de dibujo
         req.getRequestDispatcher("/WEB-INF/jsp/draw.jsp").forward(req, resp);
     }
 }

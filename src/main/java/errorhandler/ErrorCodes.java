@@ -4,8 +4,7 @@ public enum ErrorCodes {
     OK(0, "All OK"),                           //ALL OK
     SHORTPASS(1, "This password is to short"), //PASSWORD TO SHORT
     LONGPASS(2, "This password is to long"),   //PASSWORD TO BIG
-    USEREXIST(3, "The user already exist"),
-    USERNXIST(4, "The user already exist");    //USER ALREADY EXISTS
+    USEREXIST(3, "The user already exist");    //USER ALREADY EXISTS
     private String status;
     private int code;
 

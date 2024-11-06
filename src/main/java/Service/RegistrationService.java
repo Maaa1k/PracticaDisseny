@@ -1,7 +1,5 @@
 package Service;
 
-
-import java.io.IOException;
 import java.util.regex.Pattern;
 import db.*;
 import errorhandler.*;
@@ -20,7 +18,7 @@ public class RegistrationService {
     }
 
 
-    public ErrorCodes registerUser(String username, String name, String password) throws IOException {
+    public ErrorCodes registerUser(String username, String name, String password){
         UserDAOInMemory db = new UserDAOInMemory();
         NameMixer mixer = new NameMixer();
         String newName;

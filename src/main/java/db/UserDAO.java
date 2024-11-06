@@ -1,4 +1,4 @@
-package db;
+package db;//TODO Debe devolver un mensaje de error
 import model.User;
 
 public interface UserDAO {

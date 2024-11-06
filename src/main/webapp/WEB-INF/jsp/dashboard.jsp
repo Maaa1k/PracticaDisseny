@@ -8,20 +8,27 @@
 </head>
 <body>
     <h1>Bienvenido al Dashboard</h1>
-
-    <h2>Lista de Elementos</h2>
-    <ul>
-        <c:forEach var="elemento" items="${elementos}">
-            <li>${elemento}</li>
-        </c:forEach>
-    </ul>
-
     <h2>Dibujos Guardados</h2>
-    <div>
-        <c:forEach var="drawing" items="${drawings}">
-            <img src="${drawing}" alt="Dibujo" style="max-width: 200px; max-height: 200px; margin: 10px;">
-        </c:forEach>
-    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre del Dibujo</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="drawing" items="${drawings}">
+                <tr>
+                    <!-- Mostrar el nombre del dibujo -->
+                    <td>${drawing.name}</td>
+                    <td>
+                        <!-- Mostrar el dibujo usando su URL base64 -->
+                        <img src="${drawing.drawingData}" alt="Dibujo" style="max-width: 200px; max-height: 200px; margin: 10px;">
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
 
     <button onclick="window.location.href='logoutServlet'">Logout</button>
     <button onclick="window.location.href='draw'">Ir a Draw</button>

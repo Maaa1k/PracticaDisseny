@@ -7,8 +7,8 @@ public class NameMixer {
 
     public String nameGenerator() {
         Random random = new Random();
-        List<String> animals = new ArrayList<>();
-        List<String> adjectives = new ArrayList<>();
+        List<String> animals;
+        List<String> adjectives;
         List<String> combined = new ArrayList<>();
         animals = loadAnimals();
         adjectives = loadAdjectives();
@@ -17,7 +17,7 @@ public class NameMixer {
         for (int i = 0; i < size; i++) {
             String value1 = animals.get(random.nextInt(animals.size()));
             String value2 = adjectives.get(random.nextInt(adjectives.size()));
-            combined.add(value2 + " " + value1);
+            combined.add(value2 + value1);
         }
         return combined.get(random.nextInt(combined.size()));
     }
@@ -61,8 +61,6 @@ public class NameMixer {
         adjectives.add("Infamous");
         adjectives.add("Kaleidoscopic");
         adjectives.add("Lucky");
-
-
 
         return adjectives;
     }

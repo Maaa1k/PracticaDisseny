@@ -1,65 +1,81 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
+    <script defer src="./js/draw.js"></script>
     <title>Dibujo en Canvas</title>
     <style>
+        body {
+            display: flex;
+            justify-content: space-between;
+        }
         canvas {
             border: 1px solid black;
+        }
+        #historial {
+            margin-top: 20px;
+            width: 200px;
+            list-style-type: none;
+            padding: 0;
+            overflow-y: auto; /* Scroll vertical */
+            max-height: 300px; /* Altura máxima para el historial */
+        }
+        #historial div {
+            margin-bottom: 5px;
+            cursor: default; /* Cambiado para indicar que no es movible */
+            border: 1px solid #ccc;
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%; /* Ocupa todo el ancho del contenedor */
+        }
+        .delete-button {
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .mini-canvas {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ccc;
+            margin-right: 5px;
         }
     </style>
 </head>
 <body>
     <h1>Dibujo en Canvas</h1>
-    <canvas id="miCanvas" width="500" height="500"></canvas>
-    <br>
-    <button onclick="clearCanvas()">Limpiar Canvas</button>
-    <button onclick="window.location.href='dashboard'">Volver al Dashboard</button>
-    <button onclick="saveCanvas()">Guardar Dibujo</button>
+    <div>
+        <canvas id="miCanvas" width="500" height="500"></canvas>
+        <br>
+        <button onclick="clearCanvas()">Limpiar Canvas</button>
+        <button onclick="window.location.href='dashboard'">Volver al Dashboard</button>
+        <button onclick="saveCanvas()">Guardar Dibujo</button>
+        <button onclick="setShape('square')">Dibujar Cuadrado</button>
+        <button onclick="setShape('circle')">Dibujar Círculo</button>
+        <button onclick="setShape('triangle')">Dibujar Triángulo</button>
+        <button onclick="setShape('star')">Dibujar Estrella</button>
+        <button onclick="setShape('free')">Dibujar a Mano Alzada</button>
+        <button id="moveButton" onmousedown="toggleMove(true)" onmouseup="toggleMove(false)">Mover</button>
+        <button onclick="clearHistory()">Borrar Historial</button>
+        <br><br>
 
-    <form id="saveForm" action="saveDrawing" method="POST" style="display:none;">
-        <input type="hidden" name="drawingData" id="drawingData">
-    </form>
+        <label for="size">Tamaño de figuras y trazo: </label>
+        <input type="range" id="size" min="1" max="100" value="50" onchange="updateSize()">
+        <br>
+            <form id="saveForm" action="saveDrawing" method="POST" style="display:none;">
+                <input type="hidden" name="drawingData" id="dataJson">
+            </form>
 
-    <script>
-        const canvas = document.getElementById('miCanvas');
-        const ctx = canvas.getContext('2d');
+        <label for="colorPicker">Color de figuras y trazo:</label>
+        <input type="color" id="colorPicker" value="#000000" onchange="updateColors()"> <!-- Color por defecto negro -->
+    </div>
 
-        let isDrawing = false;
-        let lastX = 0;
-        let lastY = 0;
-
-        canvas.addEventListener('mousedown', (e) => {
-            isDrawing = true;
-            [lastX, lastY] = [e.offsetX, e.offsetY];
-        });
-
-        canvas.addEventListener('mouseup', () => {
-            isDrawing = false;
-            ctx.beginPath();
-        });
-
-        canvas.addEventListener('mousemove', (e) => {
-            if (!isDrawing) return;
-            ctx.strokeStyle = 'black';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(lastX, lastY);
-            ctx.lineTo(e.offsetX, e.offsetY);
-            ctx.stroke();
-            [lastX, lastY] = [e.offsetX, e.offsetY];
-        });
-
-        function clearCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-
-        function saveCanvas() {
-            const dataURL = canvas.toDataURL(); // Convierte el canvas a una imagen en base64
-            document.getElementById('drawingData').value = dataURL; // Asigna la imagen al campo oculto
-            document.getElementById('saveForm').submit(); // Envía el formulario
-        }
-    </script>
+    <div id="historial"></div>
 </body>
 </html>

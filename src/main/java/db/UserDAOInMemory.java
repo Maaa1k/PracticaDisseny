@@ -14,6 +14,7 @@ public class UserDAOInMemory  implements UserDAO {
         users.add(new User("libb","Gervasio", "4321", 2));
         users.add(new User("jhon", "Gervasio","dddd", 3));
         users.add(new User("bill2", "Gervasio","1234321", 4));
+        users.add(new User("jasperadmin", "Gervasio","jasperadmin", 5));
     }
 
     public void addUser(String username, String name, String password){
@@ -24,7 +25,6 @@ public class UserDAOInMemory  implements UserDAO {
             System.out.println("USERNAME: " + u.getUsr() + " NAME: " + u.getName() + " PASSWORD: " + u.getPsw() + " ID: " + u.getId());
         }
     }
-
 
     @Override
     public User findByUsernameAndPassword(String username, String password) {
@@ -47,7 +47,7 @@ public class UserDAOInMemory  implements UserDAO {
         return null;
     }
 
-    //TODO Cotnrol de Errores
+    //TODO Control de Errores
     @Override
     public User findUserById(int id) {
         return null;
