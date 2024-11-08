@@ -2,6 +2,11 @@ package db;
 
 import model.Drawing;
 
+import java.util.List;
+
 public interface DrawingDAO {
-    String findByDrawUsername(String username);
+    List<Drawing> getAllDrawings ();
+    void addDraw (Drawing drawing);
+    void deleteDraw(Drawing drawing);
+    void printDrawsName();
 }

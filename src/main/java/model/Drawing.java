@@ -1,16 +1,28 @@
 package model;
 
-public class Drawing {
-    private String name;
-    private int id_user;
-    private String user;
-    private String drawingData;
+import java.util.List;
 
-    public Drawing(String name, int id_user, String user, String drawingData) {
+public class Drawing {
+    public int id;
+    public String name;
+    public int id_user;
+    public String user;
+    //private List<Shape> shape;
+
+    public Drawing(int id, String name, int id_user, String user) {
+        this.id = id;
         this.name = name;
         this.id_user = id_user;
         this.user = user;
-        this.drawingData = drawingData;
+        //this.shape = shape;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -21,7 +33,6 @@ public class Drawing {
         this.name = name;
     }
 
-    // Getters y Setters
     public int getId_user() {
         return id_user;
     }
@@ -38,12 +49,5 @@ public class Drawing {
         this.user = user;
     }
 
-    public String getDrawingData() {
-        return drawingData;
-    }
-
-    public void setDrawingData(String drawingData) {
-        this.drawingData = drawingData;
-    }
 }
 

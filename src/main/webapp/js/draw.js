@@ -7,7 +7,6 @@
         let lastX = 0;
         let lastY = 0;
         let shapes = [];
-        let strokeSize = 50;
         let shapeSize = 50;
         let fillColor = '#000000'; // Color por defecto negro
         let currentStrokeColor = '#000000'; // Color por defecto negro para el trazo
@@ -31,7 +30,7 @@
             } else if (currentShape === 'free') {
                 isDrawing = true;
                 [lastX, lastY] = [x, y];
-                shapes.push({ type: 'free', points: [{ x: lastX, y: lastY }], strokeSize: strokeSize, strokeColor: currentStrokeColor });
+                shapes.push({ type: 'free', points: [{ x: lastX, y: lastY }], shapeSize: shapeSize, strokeColor: currentStrokeColor });
             } else {
                 drawShape(x, y);
             }
@@ -49,7 +48,7 @@
             if (isDrawing && currentShape === 'free') {
                 const newX = e.offsetX;
                 const newY = e.offsetY;
-                drawSmoothLine(lastX, lastY, newX, newY, strokeSize);
+                drawSmoothLine(lastX, lastY, newX, newY, shapeSize);
                 shapes[shapes.length - 1].points.push({ x: newX, y: newY });
                 [lastX, lastY] = [newX, newY];
             } else if (isMoving) {
@@ -83,10 +82,11 @@
                   const dataURL = document.getElementById('miCanvas').toDataURL();
 
                   const drawing = {
+                      id: 1,
                       name: "GERVASIO",
                       user: "nombreUsuario",
                       id_user: 123,
-                      drawingData: dataURL
+                      //drawingData: dataURL
                   };
 
                   const dataJson = JSON.stringify(drawing);
@@ -105,7 +105,7 @@ function drawShape(x, y) {
         case 'star':
             drawStar(x, y);
             break;
-        case 'triangle': // Agregar esta línea para el triángulo
+        case 'triangle':
             drawTriangle(x, y);
             break;
         default:
@@ -204,7 +204,7 @@ function drawShape(x, y) {
                 const miniCtx = miniCanvas.getContext('2d');
                 if (shape.type === 'free') {
                     miniCtx.strokeStyle = shape.strokeColor;
-                    miniCtx.lineWidth = shape.strokeSize;
+                    miniCtx.lineWidth = shape.shapeSize;
                     miniCtx.lineCap = 'round';
                     miniCtx.beginPath();
                     miniCtx.moveTo(shape.points[0].x / 10, shape.points[0].y / 10);
@@ -265,7 +265,7 @@ function drawShape(x, y) {
                 if (shape.type === 'free') {
                     // Dibujo a mano alzada
                     ctx.strokeStyle = shape.strokeColor;
-                    ctx.lineWidth = shape.strokeSize;
+                    ctx.lineWidth = shape.shapeSize;
                     ctx.lineCap = 'round';
                     ctx.beginPath();
                     ctx.moveTo(shape.points[0].x, shape.points[0].y);
@@ -325,7 +325,6 @@ function drawShape(x, y) {
 
         function updateSize() {
             shapeSize = document.getElementById('size').value;
-            strokeSize = shapeSize; // Establecer el tamaño del trazo igual al tamaño de las figuras
             redrawCanvas();
         }
 

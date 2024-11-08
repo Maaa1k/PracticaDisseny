@@ -1,5 +1,7 @@
 package Servlet;
 
+import Service.DrawingService;
+import db.DrawingDAO;
 import db.DrawingDAOInMemory;
 import model.Drawing;
 
@@ -16,17 +18,22 @@ import java.util.List;
 
 @WebServlet("/dashboard")
 public class DashboardServlet extends HttpServlet {
+    DrawingService drawingService = new DrawingService();
+
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Aquí deberías recuperar los datos (elementos, dibujos, etc.) de la sesión
         // Pasa los datos al JSP
+        List<Drawing> list = drawingService.getAllDrawings();
+        drawingService.printDrawings();
 
-        DrawingDAOInMemory db = new DrawingDAOInMemory();
-        List<Drawing> drawings = new ArrayList<>();
+        System.out.println("//// - DATABASE TEST -////");
+        for (Drawing d : list){
 
-        drawings = db.getAllDrawings();
+            System.out.println("ID: " + d.getId() + " NAME: " +d.getName()
+                    + " ID_USER: " + d.getId_user() + " USER: " +d.getUser());
+        }
 
-
-        req.setAttribute("drawings", drawings);
+        req.setAttribute("drawings", list);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/dashboard.jsp");
         dispatcher.forward(req, resp);
     }
@@ -34,13 +41,13 @@ public class DashboardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        DrawingDAOInMemory db = new DrawingDAOInMemory();
         // TODO mirar si usuari esta autoritzat
 
         // Has de rebre un string on ho ha el dibuix en json
+/*
         List<Drawing> drawings = new ArrayList<>();
 
-        drawings = db.getAllDrawings();
+        drawings = drawingService.getAllDrawings();
 
         if (drawings == null) {
             drawings = new ArrayList<>();
@@ -58,7 +65,7 @@ public class DashboardServlet extends HttpServlet {
         req.setAttribute("drawings", json);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/dashboard.jsp");
         dispatcher.forward(req, resp);
-
+*/
 
     }
 }

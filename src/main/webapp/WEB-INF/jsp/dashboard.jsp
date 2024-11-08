@@ -13,23 +13,20 @@
         <thead>
             <tr>
                 <th>Nombre del Dibujo</th>
-                <th>Imagen</th>
+                <th>ID Usuario</th>
+                <th>Nombre Usuario</th>
             </tr>
         </thead>
         <tbody>
             <c:forEach var="drawing" items="${drawings}">
                 <tr>
-                    <!-- Mostrar el nombre del dibujo -->
                     <td>${drawing.name}</td>
-                    <td>
-                        <!-- Mostrar el dibujo usando su URL base64 -->
-                        <img src="${drawing.drawingData}" alt="Dibujo" style="max-width: 200px; max-height: 200px; margin: 10px;">
-                    </td>
+                    <td>${drawing.id_user}</td>
+                    <td>${drawing.user}</td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
-
     <button onclick="window.location.href='logoutServlet'">Logout</button>
     <button onclick="window.location.href='draw'">Ir a Draw</button>
 </body>
