@@ -7,14 +7,14 @@ public class Drawing {
     public String name;
     public int id_user;
     public String user;
-    //private List<Shape> shape;
+    private List<Shape> shape;
 
-    public Drawing(int id, String name, int id_user, String user) {
+    public Drawing(int id, String name, int id_user, String user, List<Shape> shape) {
         this.id = id;
         this.name = name;
         this.id_user = id_user;
         this.user = user;
-        //this.shape = shape;
+        this.shape = shape;
     }
 
     public int getId() {
@@ -49,5 +49,12 @@ public class Drawing {
         this.user = user;
     }
 
+    public List<Shape> getShape() {
+        return shape;
+    }
+
+    public void setShape(List<Shape> shape) {
+        this.shape = shape;
+    }
 }
 

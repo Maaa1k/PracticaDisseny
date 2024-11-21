@@ -13,7 +13,7 @@ public class DrawingDAOInMemory implements DrawingDAO{
         int id = drawings.size();
         id++;
         drawings.add(new Drawing(id,drawing.getName(),
-                drawing.getId_user(), drawing.getUser()));
+                drawing.getId_user(), drawing.getUser(), drawing.getShape()));
         System.out.println("DIBUJO CREADO, PROPIETARIO: " + drawing.getUser());
     }
 

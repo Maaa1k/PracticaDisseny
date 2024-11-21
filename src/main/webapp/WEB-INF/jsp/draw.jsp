@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <script defer src="./js/draw.js"></script>
+    <script defer src="./js/draw2.js"></script>
     <title>Dibujo en Canvas</title>
     <style>
         body {
@@ -55,7 +55,7 @@
     <div>
         <canvas id="miCanvas" width="500" height="500"></canvas>
         <br>
-        <button onclick="clearCanvas()">Limpiar Canvas</button>
+        <button onclick="clearHistory()">Limpiar Canvas</button>
         <button onclick="window.location.href='dashboard'">Volver al Dashboard</button>
         <button onclick="saveCanvas()">Guardar Dibujo</button>
         <button onclick="setShape('square')">Dibujar Cuadrado</button>
@@ -63,8 +63,8 @@
         <button onclick="setShape('triangle')">Dibujar Triángulo</button>
         <button onclick="setShape('star')">Dibujar Estrella</button>
         <button onclick="setShape('free')">Dibujar a Mano Alzada</button>
-        <button id="moveButton" onmousedown="toggleMove(true)" onmouseup="toggleMove(false)">Mover</button>
-        <button onclick="clearHistory()">Borrar Historial</button>
+        <label for="fillToggle">Relleno:</label>
+        <input type="checkbox" id="fillToggle" checked onclick="toggleFill()">
         <br><br>
 
         <label for="size">Tamaño de figuras y trazo: </label>
