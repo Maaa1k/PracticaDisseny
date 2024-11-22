@@ -251,3 +251,9 @@ function updateHistory() {
         historialDiv.appendChild(historialItem);
     });
 }
+function saveCanvas() {
+  const dataURL = document.getElementById('miCanvas').toDataURL();
+  const dataJson = JSON.stringify(shapes);
+  document.getElementById('dataJson').value = dataJson;
+  document.getElementById('saveForm').submit();
+ }

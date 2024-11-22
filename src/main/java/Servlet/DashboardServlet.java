@@ -4,6 +4,7 @@ import Service.DrawingService;
 import db.DrawingDAO;
 import db.DrawingDAOInMemory;
 import model.Drawing;
+import model.Shape;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,6 +32,7 @@ public class DashboardServlet extends HttpServlet {
 
             System.out.println("ID: " + d.getId() + " NAME: " +d.getName()
                     + " ID_USER: " + d.getId_user() + " USER: " +d.getUser());
+            for (Shape s : d.getShape()) System.out.println(s.getType());
         }
 
         req.setAttribute("drawings", list);
