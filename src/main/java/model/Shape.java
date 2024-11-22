@@ -10,8 +10,12 @@ public class Shape {
     String fillColor;
     boolean useFill;
     String lineWidth;
+    double radius;
+    double outerRadius;
+    double innerRadius;
 
-    public Shape(String type, String x, String y, String x2, String y2,  String size, String fillColor, boolean useFill, String lineWidth) {
+
+    public Shape(String type, String x, String y, String x2, String y2,  String size, String fillColor, boolean useFill, String lineWidth, double radius ,double outerRadius, double innerRadius) {
         this.type = type;
         this.x = x;
         this.y = y;
@@ -21,6 +25,9 @@ public class Shape {
         this.fillColor = fillColor;
         this.useFill = useFill;
         this.lineWidth = lineWidth;
+        this.radius = radius;
+        this.outerRadius = outerRadius;
+        this.innerRadius = innerRadius;
     }
 
     public String getType() {
@@ -93,5 +100,21 @@ public class Shape {
 
     public void setLineWidth(String lineWidth) {
         this.lineWidth = lineWidth;
+    }
+
+    public double getOuterRadius() {
+        return outerRadius;
+    }
+
+    public void setOuterRadius(double outerRadius) {
+        this.outerRadius = outerRadius;
+    }
+
+    public double getInnerRadius() {
+        return innerRadius;
+    }
+
+    public void setInnerRadius(double innerRadius) {
+        this.innerRadius = innerRadius;
     }
 }
