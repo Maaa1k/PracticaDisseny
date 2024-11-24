@@ -24,6 +24,12 @@ public class DashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Aquí deberías recuperar los datos (elementos, dibujos, etc.) de la sesión
         // Pasa los datos al JSP
+        HttpSession session = req.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            resp.sendRedirect(req.getContextPath() + "/login");
+            return;
+        }
+
         List<Drawing> list = drawingService.getAllDrawings();
         drawingService.printDrawings();
 

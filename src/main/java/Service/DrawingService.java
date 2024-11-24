@@ -2,6 +2,7 @@ package Service;
 
 import db.DrawingDAO;
 import db.DrawingDAOInMemory;
+import db.UserDAO;
 import model.Drawing;
 import java.util.List;
 

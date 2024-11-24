@@ -9,8 +9,8 @@ public class Drawing {
     public String user;
     private List<Shape> shape;
 
-    public Drawing(int id, String name, int id_user, String user, List<Shape> shape) {
-        this.id = id;
+    public Drawing(String name, int id_user, String user, List<Shape> shape) {
+
         this.name = name;
         this.id_user = id_user;
         this.user = user;

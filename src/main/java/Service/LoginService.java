@@ -9,4 +9,7 @@ public class LoginService {
         User user = userDAO.findByUsernameAndPassword(username, password);
         return user;
     }
+    public User getUserByName(String username){
+        return userDAO.findByUsername(username);
+    }
 }

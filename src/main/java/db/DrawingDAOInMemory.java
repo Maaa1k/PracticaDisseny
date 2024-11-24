@@ -8,12 +8,16 @@ import java.util.List;
 public class DrawingDAOInMemory implements DrawingDAO{
 
     static List<Drawing> drawings = new ArrayList<>();
+    private int id = 0;
 
     public void addDraw (Drawing drawing){
-        int id = drawings.size();
+//        int id = drawings.size();
         id++;
-        drawings.add(new Drawing(id,drawing.getName(),
-                drawing.getId_user(), drawing.getUser(), drawing.getShape()));
+        Drawing draw = new Drawing(drawing.getName(),
+                drawing.getId_user(), drawing.getUser(), drawing.getShape());
+        draw.setId(id);
+        drawings.add(draw);
+
         System.out.println("DIBUJO CREADO, PROPIETARIO: " + drawing.getUser());
     }
 
