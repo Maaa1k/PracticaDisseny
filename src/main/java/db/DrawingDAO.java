@@ -9,4 +9,5 @@ public interface DrawingDAO {
     void addDraw (Drawing drawing);
     void deleteDraw(Drawing drawing);
     void printDrawsName();
+    Drawing getDrawingById(int id);
 }

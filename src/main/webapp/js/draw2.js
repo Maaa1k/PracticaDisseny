@@ -12,10 +12,11 @@ let fillColor = '#000000'; // Color por defecto negro
 let useFill = true;
 
 // Definir la función addShape para agregar una figura al historial
-function addShape(type, x, y, size, fillColor, useFill, lineWidth, radius, outerRadius, innerRadius) {
-    const shape = { type, x, y, size, fillColor, useFill, lineWidth, radius, outerRadius, innerRadius };
+function addShape(type, x, y, size, fillColor, useFill, lineWidth, radius, outerRadius, innerRadius, points) {
+    const shape = { type, x, y, size, fillColor, useFill, lineWidth, radius, outerRadius, innerRadius, points };
     shapes.push(shape);
     updateHistory();
+    redrawCanvas();
 }
 
 // Configurar la forma que se desea dibujar
@@ -36,14 +37,16 @@ function toggleFill() {
 
 function drawShape(x, y) {
     if (currentShape === 'square') {
-        addShape('square', x, y, shapeSize, fillColor, useFill, 2, null, null, null);
+        addShape('square', x, y, shapeSize, fillColor, useFill, 2, null, null, null, null);
     } else if (currentShape === 'circle') {
-        addShape('circle', x, y, shapeSize, fillColor, useFill, 2, shapeSize / 2, null, null);
+        addShape('circle', x, y, shapeSize, fillColor, useFill, 2, shapeSize / 2, null, null, null);
     } else if (currentShape === 'triangle') {
-        addShape('triangle', x, y, shapeSize, fillColor, useFill, 2, null, null, null);
+        addShape('triangle', x, y, shapeSize, fillColor, useFill, 2, null, null, null, null);
     } else if (currentShape === 'star') {
-        addShape('star', x, y, shapeSize, fillColor, useFill, 2, null, shapeSize / 2, shapeSize / 4);
+        addShape('star', x, y, shapeSize, fillColor, useFill, 2, null, shapeSize / 2, shapeSize / 4), null;
     }
+     else if (currentShape === 'free'){
+     addShape('free', x, y, shapeSize, fillColor, useFill, 2, null, null, null, null);}
     redrawCanvas();
 }
 
@@ -129,16 +132,18 @@ function drawStar(shape) {
 }
 
 function drawFreeShape(shape) {
+    if (shape.points.length < 2) return; // Asegurarse de que hay al menos dos puntos para dibujar
+
     ctx.strokeStyle = shape.fillColor;
-    ctx.lineWidth = shape.lineWidth;
+    ctx.lineWidth = shape.lineWidth || 2;
+    ctx.lineCap = 'round';
+
     ctx.beginPath();
-    shape.points.forEach((point, index) => {
-        if (index === 0) {
-            ctx.moveTo(point.x, point.y);
-        } else {
-            ctx.lineTo(point.x, point.y);
-        }
-    });
+    ctx.moveTo(shape.points[0].x, shape.points[0].y); // Primer punto
+
+    for (let i = 1; i < shape.points.length; i++) {
+        ctx.lineTo(shape.points[i].x, shape.points[i].y); // Crear líneas continuas
+    }
     ctx.stroke();
 }
 
@@ -167,21 +172,44 @@ canvas.addEventListener('mouseup', () => {
     isDrawing = false;
 });
 
-canvas.addEventListener('mouseup', () => {
-    if (isDrawing && currentShape === 'free') {
-        updateHistory();
-    }
-    isDrawing = false;
-});
+
+
 
 canvas.addEventListener('mousemove', (e) => {
     if (isDrawing && currentShape === 'free') {
         const newX = e.offsetX;
         const newY = e.offsetY;
-        drawSmoothLine(lastX, lastY, newX, newY, 2);
-        shapes[shapes.length - 1].points.push({ x: newX, y: newY });
+
+        // Agregar puntos al trazo actual
+        const currentFreeShape = shapes[shapes.length - 1];
+        currentFreeShape.points.push({ x: newX, y: newY });
+
+        // Dibujar la nueva línea directamente
+        ctx.strokeStyle = currentFreeShape.fillColor;
+        ctx.lineWidth = currentFreeShape.lineWidth;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(newX, newY);
+        ctx.stroke();
+
+        // Actualizar las coordenadas
         [lastX, lastY] = [newX, newY];
     }
+});
+
+canvas.addEventListener('mouseup', () => {
+    if (isDrawing && currentShape === 'free') {
+        const currentFreeShape = shapes[shapes.length - 1];
+
+        // Asegurarse de que el trazo tenga al menos dos puntos
+        if (currentFreeShape.points.length < 2) {
+            shapes.pop(); // Eliminar si no hay puntos suficientes
+        } else {
+            updateHistory();
+        }
+    }
+    isDrawing = false;
 });
 
 // Función para obtener la posición del ratón en el canvas

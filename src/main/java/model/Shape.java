@@ -1,11 +1,11 @@
 package model;
 
+import java.util.List;
+
 public class Shape {
     String type;
     String x;
-    String x2;
     String y;
-    String y2;
     String size;
     String fillColor;
     boolean useFill;
@@ -13,14 +13,13 @@ public class Shape {
     double radius;
     double outerRadius;
     double innerRadius;
+    List<Points> points;
 
 
-    public Shape(String type, String x, String y, String x2, String y2,  String size, String fillColor, boolean useFill, String lineWidth, double radius ,double outerRadius, double innerRadius) {
+    public Shape(String type, String x, String y, String size, String fillColor, boolean useFill, String lineWidth, double radius , double outerRadius, double innerRadius, List<Points> points) {
         this.type = type;
         this.x = x;
         this.y = y;
-        this.x2 = x2;
-        this.y2 = y2;
         this.size = size;
         this.fillColor = fillColor;
         this.useFill = useFill;
@@ -28,6 +27,7 @@ public class Shape {
         this.radius = radius;
         this.outerRadius = outerRadius;
         this.innerRadius = innerRadius;
+        this.points = points;
     }
 
     public String getType() {
@@ -78,22 +78,6 @@ public class Shape {
         this.useFill = useFill;
     }
 
-    public String getX2() {
-        return x2;
-    }
-
-    public void setX2(String x2) {
-        this.x2 = x2;
-    }
-
-    public String getY2() {
-        return y2;
-    }
-
-    public void setY2(String y2) {
-        this.y2 = y2;
-    }
-
     public String getLineWidth() {
         return lineWidth;
     }
@@ -116,5 +100,21 @@ public class Shape {
 
     public void setInnerRadius(double innerRadius) {
         this.innerRadius = innerRadius;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    public List<Points> getPoints() {
+        return points;
+    }
+
+    public void setPoints(List<Points> points) {
+        this.points = points;
     }
 }

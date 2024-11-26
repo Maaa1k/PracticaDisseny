@@ -30,6 +30,14 @@ public class DrawingDAOInMemory implements DrawingDAO{
             System.out.println("PRINT NAME: " + d.getName());
         }
     }
+    public Drawing getDrawingById(int id) {
+        for (Drawing drawing : getAllDrawings()) {
+            if (drawing.getId() == id) {
+                return drawing;
+            }
+        }
+        return null;
+    }
 
     public void deleteDraw(Drawing drawing){
         drawings.removeIf(d -> d.getId() == drawing.getId());

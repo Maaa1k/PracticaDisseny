@@ -1,5 +1,6 @@
 package Servlet;
 
+import Service.DrawingService;
 import db.DrawingDAOInMemory;
 import model.Drawing;
 
@@ -16,25 +17,35 @@ import java.util.List;
 
 @WebServlet("/newview")
 public class ViewServlet extends HttpServlet {
+    DrawingService drawingService = new DrawingService();
 
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            // Aquí deberías recuperar los datos (elementos, dibujos, etc.) de la sesión
-            // Pasa los datos al JSP
-            HttpSession session = req.getSession(false);
-            if (session == null || session.getAttribute("user") == null) {
-                resp.sendRedirect(req.getContextPath() + "/login");
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Obtener el parámetro 'id' del dibujo
+        String idParam = req.getParameter("id");
+        System.out.println("ID DIBUJO: "+idParam);
+        if (idParam == null || idParam.isEmpty()) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID de dibujo no proporcionado.");
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(idParam);
+
+            // Buscar el dibujo por ID
+            Drawing drawing = drawingService.getDrawingById(id);
+            if (drawing == null) {
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Dibujo no encontrado.");
                 return;
             }
 
-            DrawingDAOInMemory db = new DrawingDAOInMemory();
-            List<Drawing> drawings = new ArrayList<>();
-
-            drawings = db.getAllDrawings();
-
-
-            req.setAttribute("drawings", drawings);
+            // Pasar el dibujo al JSP
+            req.setAttribute("drawing", drawing);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/newview.jsp");
             dispatcher.forward(req, resp);
-        }
 
+        } catch (NumberFormatException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID de dibujo inválido.");
+        }
     }
+}

@@ -19,4 +19,7 @@ public class DrawingService {
     public void addDraw(Drawing drawing){
         drawingDAO.addDraw(drawing);
     }
+    public Drawing getDrawingById(int id){
+        return drawingDAO.getDrawingById(id);
+    }
 }

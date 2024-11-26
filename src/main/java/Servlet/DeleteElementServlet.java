@@ -24,11 +24,6 @@ public class DeleteElementServlet extends HttpServlet {
         }
         int index = Integer.parseInt(req.getParameter("index"));
 
-        List<String> elementos = (List<String>) session.getAttribute("elementos");
-
-        if (elementos != null && index >= 0 && index < elementos.size()) {
-            elementos.remove(index);
-        }
 
         // Redirigir de vuelta al dashboard
         resp.sendRedirect("dashboard");

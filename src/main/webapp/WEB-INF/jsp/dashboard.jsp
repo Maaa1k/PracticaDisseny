@@ -14,16 +14,21 @@
         <thead>
             <tr>
                 <th>Nombre del Dibujo</th>
-                <th>ID Usuario</th>
+                <th>ID Dibujo</th>
                 <th>Nombre Usuario</th>
+                <th>Acciones</th> <!-- Nueva columna para acciones -->
             </tr>
         </thead>
         <tbody>
             <c:forEach var="drawing" items="${drawings}">
                 <tr>
                     <td>${drawing.name}</td>
-                    <td>${drawing.id_user}</td>
+                    <td>${drawing.id}</td>
                     <td>${drawing.user}</td>
+                    <td>
+                        <!-- Enlace para ver el dibujo -->
+                        <a href="newview?id=${drawing.id}">Ver</a>
+                    </td>
                 </tr>
             </c:forEach>
         </tbody>
